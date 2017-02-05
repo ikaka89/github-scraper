@@ -13,6 +13,13 @@ mv t annotateScrapedTruncatedLinks.list
 
 ## now get all users from orgs
 awk '$1=="org"{print $2}' annotateScrapedTruncatedLinks.list | awk -v g="'" '{print g"\""$1"\","g"+"}'  > getBioUsersFromOrgs.js 
+node getBioUsersFromOrgs.js > t
+grep -v "people" t > bioUsersFromScrapedOrgs.list
+rm t   
+
+### Get a full list of bio users
+grep "profile" annotateScrapedTruncatedLinks.list | cut -f2 > t
+cat bioUsersFromScrapedOrgs.list t | sort | uniq > allBioUsers.list
 
 
 

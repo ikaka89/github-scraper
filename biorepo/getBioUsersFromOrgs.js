@@ -328,4 +328,18 @@ var text = '{ "orgs" :' +
 '}';
 
 var scrapedOrgs = JSON.parse(text);
+var people = require('../lib/switcher');
+
+// remove the github tag
+
+for(i=0; i<scrapedOrgs.orgs.length; i++){
+	orgname = scrapedOrgs.orgs[i].replace("https://github.com/","");
+	
+	people("orgs/".concat(orgname).concat("/people"),function(err,data){
+		for(j=0; j<data.entries.length; j++){
+			console.log("https://github.com/".concat(data.entries[j]));
+		}
+	})
+}
+
 
