@@ -1388,9 +1388,15 @@ var starred = require('../lib/switcher');
 for(i=0; i<users.biouser.length; i++){
 	username = users.biouser[i].replace("https://github.com/","");
 	
-	people("stars/".concat(orgname),function(err,data){
-		
+	starred("stars/".concat(username),function(err,data){
+		if(data.entries.length !== 'undefined'){
+			for(j=0; j<data.entries.length; j++){
+				console.log(data.entries[j]);
+			}
+		}
 	})
+	
+	
 }
 
 
