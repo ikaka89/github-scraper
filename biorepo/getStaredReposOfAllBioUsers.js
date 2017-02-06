@@ -1391,9 +1391,49 @@ for(i=0; i<users.biouser.length; i++){
 	starred("stars/".concat(username),function(err,data){
 		if(data.entries.length !== 'undefined'){
 			for(j=0; j<data.entries.length; j++){
-				console.log(data.entries[j]);
+				process.stdout.write(data.url.replace("https://github.com/stars/","")+"\t");
+				process.stdout.write(data.entries[j]+"\t");
+				process.stdout.write("\n");
 			}
 		}
+		if(typeof data.next_page !== 'undefined'){
+			starred(data.next_page,function(err,data2){
+				for(k=0; k<data2.entries.length; k++){
+					process.stdout.write(data.url.replace("https://github.com/stars/","")+"\t");
+					process.stdout.write(data2.entries[k]+"\t");
+					process.stdout.write("\n");
+				}
+				
+				if(typeof data2.next_page !== 'undefined'){
+					starred(data2.next_page,function(err,data3){
+						for(l=0; l<data3.entries.length; l++){
+							process.stdout.write(data.url.replace("https://github.com/stars/","")+"\t");
+							process.stdout.write(data3.entries[l]+"\t");
+							process.stdout.write("\n");
+						}
+						
+						if(typeof data3.next_page !== 'undefined'){
+							starred(data3.next_page,function(err,data4){
+								for(l=0; l<data4.entries.length; l++){
+									process.stdout.write(data.url.replace("https://github.com/stars/","")+"\t");
+									process.stdout.write(data4.entries[l]+"\t");
+									process.stdout.write("\n");
+								}
+						
+							})
+						
+						}
+						
+					})
+						
+				}
+			
+			
+			
+			
+			})
+		}
+		
 	})
 	
 	

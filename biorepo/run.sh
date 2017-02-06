@@ -21,6 +21,15 @@ rm t
 grep "profile" annotateScrapedTruncatedLinks.list | cut -f2 > t
 cat bioUsersFromScrapedOrgs.list t | sort | uniq > allBioUsers.list
 
+## Get all stared repos
+node getStaredReposOfAllBioUsers.js | grep "starred" > Starred_repos.list
 
+## get user repo map
+perl indexReposAndUsers.pl Starred_repos.list > userStarMap.mat
 
+sort -k1 -n userIndex.txt > t
+mv t userIndex.txt
+
+sort -k1 -n repoIndex.txt > t
+mv t repoIndex.txt
 

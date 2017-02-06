@@ -15,12 +15,12 @@ test('read list of starred repos for single page @lukebond (who never stars anyt
 test('read list of starred repos for single page @iteles (multi-page) ', function(t){
   var username = 'stars/iteles';
 	starred(username, function(err, data) {
-		//console.log(data)
+		console.log(data)
 		// t.ok(data.repos.length === 20, 'first page of org has 20 repos: '+data.repos.length)
 		t.ok(data.entries.length === 30, '@'+username +' has only "starred": '+data.entries.length +' repos (first page)');
 		t.ok(data.next_page.indexOf('page=2') > -1, '@'+username +' has multiple pages of starred repos');
 		starred(data.next_page, function(err2, data2){
-			console.log(data2.next_page)
+			console.log(data2)
 			t.ok(data2.next_page.indexOf('page=3') > -1, '@'+username +' has multiple pages of starred repos');
 			t.end();
 		})
