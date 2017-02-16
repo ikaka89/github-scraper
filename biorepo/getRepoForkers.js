@@ -3,7 +3,6 @@ This script takes in a list of repos and outputs all its forkers as:-
 forker	repo
 */
 
-// define a file streamer
 var repo = process.argv[2];
 var forkers = require('../lib/switcher');
 
